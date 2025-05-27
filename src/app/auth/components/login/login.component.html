@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="username">Username: </label>
+            <input type="text" id="username" formControlName="username" autocomplete="off">
+            <div *ngIf="formControls['username'].invalid && (formControls['username'].dirty
+            || formControls['username'].touched)" class="error-message">
+                <div *ngIf="formControls['username'].errors?.['required']">
+                    Username is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password: </label>
+            <input type="password" id="password" formControlName="password" autocomplete="off">
+            <div *ngIf="formControls['password'].invalid && (formControls['password'].dirty || formControls['password'].touched)" class="error-message">
+                <div *ngIf="formControls['password'].errors?.['required']">
+                    Password is required.
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid || isLoading">
+            {{isLoading? 'Logging In...' : 'Login'}}
+        </button>
+
+        <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+    </form>
+    <a routerLink="/register">Don't have an account? Register here.</a>
+</div>
+
+

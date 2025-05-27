@@ -1,0 +1,36 @@
+<header class="nav-header">
+    <div class="logo">
+      <a routerLink="/">
+        <img src="/assets/icon/icon-512-maskable.png" alt="SDMlogo"/>
+        Super Duper Mart
+      </a>
+    </div>
+
+    <nav class="nav-links">
+      <div class="user-section">
+        <ng-container *ngIf="isLoggedIn$ | async; else loginLink">
+          <a [routerLink]="(userRole$ | async) === 'ADMIN' ? 'admin-dashboard' : 'client-dashboard'" class="user-icon">
+            <mat-icon>person</mat-icon>
+          </a>
+        </ng-container>
+
+        <ng-template #loginLink>
+          <a routerLink="/login" class="login-link">
+            Please login
+          </a>
+        </ng-template>
+      </div>
+
+      <a *ngIf="(userRole$ | async)!=='ADMIN'" (click)="handleClick()" class="cart-icon">
+        <div class="cart-pic-num">
+          <span>{{cart? cart.products.length:0}}</span>
+          <mat-icon>shopping_cart</mat-icon>
+        </div>
+        <div class="cart-text">
+          <span></span>
+          <span>Cart</span>
+        </div>
+      </a>
+    </nav>
+
+</header>

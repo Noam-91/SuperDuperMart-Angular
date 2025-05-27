@@ -1,0 +1,56 @@
+<div class="order-detail-container" *ngIf="order; else orderNotFound">
+
+  <header class="order-detail-header">
+    <h2>Order Details (Order #{{ order.orderId }})</h2>
+    <div class="order-summary">
+      <span class="order-status" [ngClass]="'status-' + order.status.toLowerCase()">Status: {{ order.status }}</span>
+      <span>Order Time: {{ order.createdAt | date:'short' }}</span>
+      <span>Total Quantity: {{ order.totalQuantity }}</span>
+      <span>Total Price: {{ order.totalPrice | currency }}</span>
+    </div>
+    <button class="cancel-order-button"
+            (click)="cancelOrder()"
+            [disabled]="order.status !== 'PROCESSING'">
+      Cancel Order
+    </button>
+
+    <button class="complete-order-button"
+            [hidden]="userRole!=='ADMIN'"
+            (click)="completeOrder()"
+            [disabled]="order.status !== 'PROCESSING'">
+      Complete Order
+    </button>
+  </header>
+
+  <div class="order-products-list">
+    <h3>Items in this Order:</h3>
+    <div *ngIf="order.products && order.products.length > 0; else noProductsInOrder">
+      <div *ngFor="let product of order.products" class="order-product-item">
+        <div class="product-thumbnail">
+          <img [src]="product.imageUrl" [alt]="product.name" class="thumbnail-image">
+        </div>
+        <div class="product-details">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-category">{{ product.category.name }}</div>
+          <div class="product-price">{{ product.priceRetail | currency }}</div>
+          <div class="product-quantity">Quantity: {{ product.quantity }}</div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noProductsInOrder>
+      <div class="empty-products-message">
+        <p>No products found for this order.</p>
+      </div>
+    </ng-template>
+
+  </div>
+
+</div>
+
+<ng-template #orderNotFound>
+  <div class="order-not-found">
+    <p>Order not found or an error occurred.</p>
+    <p><a routerLink="/client-dashboard">View Recent Orders</a></p>
+  </div>
+</ng-template>

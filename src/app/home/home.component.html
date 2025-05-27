@@ -1,0 +1,50 @@
+<div class="home-container">
+  <header class="page-header">
+    <h1>Welcome to Our Store!</h1>
+    <p class="user-info" *ngIf="userRole === 'ADMIN'">Logged in as: {{ userRole }}</p>
+  </header>
+
+  <div *ngIf="categoryNames.length > 0; else noProducts">
+    <div *ngFor="let categoryName of categoryNames; trackBy: trackByCategoryName" class="category-section">
+      <h2 class="category-title">{{ categoryName }}</h2>
+      <div class="product-cards-grid">
+        <div *ngFor="let product of productsByCategory.get(categoryName); trackBy: trackByProductId" class="product-card">
+          <div class="product-image-container">
+            <img [src]="product.imageUrl || 'assets/placeholder.png'" [alt]="product.name" class="product-image">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name" (click)="viewProductDetails(product.productId)">{{ product.name }}</h3>
+            <p class="product-category">{{ product.category.name }}</p>
+            <p class="product-price">${{ product.priceRetail | number:'1.2-2' }}</p>
+            <p class="product-status" *ngIf="product.inventory?.quantity === 0 && userRole !== 'ADMIN'">Out of Stock</p>
+            <p class="product-status admin-view" *ngIf="userRole === 'ADMIN'">
+              Inventory: {{ product.inventory.quantity }} | Active: {{ product.isActive ? 'Yes' : 'No' }}
+            </p>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart-button"
+                    (click)="addToCart(product)"
+                    [hidden]="userRole === 'ADMIN'"
+                    [disabled]="userRole === 'ANONYMOUS'">
+              {{ (product.inventory.quantity === 0 && userRole !== 'ADMIN') ? 'Out of Stock' : 'Add to Cart' }}
+            </button>
+            <button class="details-button" (click)="viewProductDetails(product.productId)">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noProducts>
+    <div class="empty-products-message">
+      <p>No products available at the moment.</p>
+    </div>
+  </ng-template>
+</div>
+
+<a routerLink="/assistant" class="floating-assistant-button" *ngIf="userRole !== 'ADMIN'">
+  <div class="button-content">
+    <span class="assistant-icon" >💬</span>
+    <span class="assistant-text">Chat with Assistant</span>
+  </div>
+</a>

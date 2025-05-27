@@ -1,0 +1,17 @@
+/* create-watchlist-dialog.component.scss */
+
+// Basic styling for the dialog content
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px; // Ensure a minimum width for the dialog
+
+  mat-form-field {
+    width: 100%; // Make the input field take full width
+  }
+}
+
+// Styling for the dialog actions (buttons)
+mat-dialog-actions {
+  padding-top: 20px; // Add some space above the buttons
+}

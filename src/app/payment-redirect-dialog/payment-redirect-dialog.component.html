@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Complete Your Payment</h2>
+<mat-dialog-content>
+  <p>Click the button below to go to the payment page:</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <a mat-button [href]="data.paymentUrl" target="_blank" (click)="onRedirectClick()">Go to Payment</a>
+</mat-dialog-actions>

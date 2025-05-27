@@ -1,0 +1,111 @@
+<div class="container">
+  <h2>Sign up</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-columns">
+
+      <div class="left-column">
+        <h3>Required Information</h3>
+
+        <div class="form-group">
+          <label for="username">{{ 'username' | labelling }}: </label>
+          <input type="text" id="username" formControlName="username">
+          <div *ngIf="formControls['username'].invalid && (formControls['username'].dirty || formControls['username'].touched)" class="error-message">
+            <div *ngIf="formControls['username'].hasError('required')">{{ 'username' | labelling }} is required.</div>
+            <div *ngIf="formControls['username'].hasError('pattern')">Invalid format for username.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">{{ 'password' | labelling }}: </label>
+          <input type="password" id="password" formControlName="password">
+          <div *ngIf="formControls['password'].invalid && (formControls['password'].dirty || formControls['password'].touched)" class="error-message">
+            <div *ngIf="formControls['password'].hasError('required')">{{ 'password' | labelling }} is required.</div>
+            <div *ngIf="formControls['password'].hasError('minlength')">{{ 'password' | labelling }} must be at least {{ formControls['password'].errors?.['minlength']?.requiredLength }} characters long.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="passwordConfirm">{{ 'passwordConfirm' | labelling }}: </label>
+          <input type="password" id="passwordConfirm" formControlName="passwordConfirm">
+          <div *ngIf="formControls['passwordConfirm'].invalid && (formControls['passwordConfirm'].dirty || formControls['passwordConfirm'].touched)" class="error-message">
+            <div *ngIf="formControls['passwordConfirm'].hasError('required')">{{ 'passwordConfirm' | labelling }} is required.</div>
+            <div *ngIf="formControls['passwordConfirm'].hasError('passwordMismatch')">Passwords do not match.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">{{ 'email' | labelling }}: </label>
+          <input type="email" id="email" formControlName="email">
+          <div *ngIf="formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)" class="error-message">
+            <div *ngIf="formControls['email'].hasError('required')">{{ 'email' | labelling }} is required.</div>
+            <div *ngIf="formControls['email'].hasError('email')">Invalid email format.</div>
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="registerForm.invalid || isLoading">
+          {{isLoading? 'Registering...' : 'Register'}}
+        </button>
+
+        <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+
+      </div> <div class="form-divider"></div>
+
+      <div class="right-column">
+        <h3>Optional Information</h3>
+
+        <div class="form-group">
+          <label for="firstName">{{ 'firstName' | labelling }}: </label>
+          <input type="text" id="firstName" formControlName="firstName">
+          <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)" class="error-message">
+            <div *ngIf="formControls['firstName'].hasError('pattern')">Invalid format for {{ 'firstName' | lowercase }}.</div>
+            <div *ngIf="formControls['firstName'].hasError('minlength')">{{ 'firstName' | labelling }} must be at least {{ formControls['firstName'].errors?.['minlength']?.requiredLength }} characters long.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">{{ 'lastName' | labelling }}: </label>
+          <input type="text" id="lastName" formControlName="lastName">
+          <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)" class="error-message">
+            <div *ngIf="formControls['lastName'].hasError('pattern')">Invalid format for {{ 'lastName' | lowercase }}.</div>
+            <div *ngIf="formControls['lastName'].hasError('minlength')">{{ 'lastName' | labelling }} must be at least {{ formControls['lastName'].errors?.['minlength']?.requiredLength }} characters long.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">{{ 'address' | labelling }}: </label>
+          <input type="text" id="address" formControlName="address">
+          <div *ngIf="formControls['address'].invalid && (formControls['address'].dirty || formControls['address'].touched)" class="error-message">
+            <div *ngIf="formControls['address'].hasError('minlength')">{{ 'address' | labelling }} must be at least {{ formControls['address'].errors?.['minlength']?.requiredLength }} characters long.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">{{ 'city' | labelling }}: </label>
+          <input type="text" id="city" formControlName="city">
+          <div *ngIf="formControls['city'].invalid && (formControls['city'].dirty || formControls['city'].touched)" class="error-message">
+            <div *ngIf="formControls['city'].hasError('pattern')">Invalid format for {{ 'city' | lowercase }}.</div>
+            <div *ngIf="formControls['city'].hasError('minlength')">{{ 'city' | labelling }} must be at least {{ formControls['city'].errors?.['minlength']?.requiredLength }} characters long.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="state">{{ 'state' | labelling }}: </label>
+          <input type="text" id="state" formControlName="state">
+          <div *ngIf="formControls['state'].invalid && (formControls['state'].dirty || formControls['state'].touched)" class="error-message">
+            <div *ngIf="formControls['state'].hasError('pattern')">Invalid format for {{ 'state' | lowercase }}.</div>
+            <div *ngIf="formControls['state'].hasError('minlength')">{{ 'state' | labelling }} must be at least {{ formControls['state'].errors?.['minlength']?.requiredLength }} characters long.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="zip">{{ 'zip' | labelling }}: </label>
+          <input type="text" id="zip" formControlName="zip">
+          <div *ngIf="formControls['zip'].invalid && (formControls['zip'].dirty || formControls['zip'].touched)" class="error-message">
+            <div *ngIf="formControls['zip'].hasError('pattern')">Invalid format for {{ 'zip' | lowercase }}.</div>
+            <div *ngIf="formControls['zip'].hasError('minlength')">{{ 'zip' | labelling }} must be at least {{ formControls['zip'].errors?.['minlength']?.requiredLength }} characters long.</div>
+          </div>
+        </div>
+
+      </div> </div> </form> <a routerLink="/login">Already have an account? Login here.</a>
+
+</div>

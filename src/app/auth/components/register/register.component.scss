@@ -1,0 +1,129 @@
+@import "variables";
+.container {
+  /* Center the container */
+  max-width: 60vw;
+  margin: $spacing-unit*6 auto;
+
+  /* Add some styling to the container itself */
+  padding: $spacing-xl;
+  border: 1px solid $border-color;
+  border-radius: $spacing-sm;
+  box-shadow: 0 $spacing-xs $spacing-unit*1.5 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  @include flex-display(column);
+
+  h2 {
+    margin-bottom: $spacing-lg;
+    color: $text-color;
+  }
+
+  form {
+    @include flex-display(column);
+    width: 100%;
+    gap: $spacing-md; // Add space between form groups and button
+  }
+
+  .form-group {
+    width: 100%;
+    margin-bottom: 0;
+
+    // Each form group handles its label and input
+    label {
+      display: block; // Label on its own line
+      margin-bottom: $spacing-sm; // Space between label and input
+      font-weight: bold;
+      color: $text-color;
+      font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%; // Full width relative to the form group
+      padding: $spacing-unit * 1.5;
+      border: 1px solid $border-color;
+      border-radius: $spacing-unit * 0.5;
+    }
+
+    /* Style for invalid inputs when touched/dirty */
+    input.ng-invalid.ng-touched {
+      border-color: $danger-color; /* Red border for invalid input */
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Optional: add a subtle glow */
+    }
+  }
+
+  button[type="submit"] {
+    width: 100%; // Full width button
+    padding: $spacing-unit * 1.5;
+    margin-top: $spacing-md;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: $spacing-unit * 0.5;
+    cursor: pointer;
+    font-size: 1.2rem; // Larger font
+    transition: background-color 0.2s ease, opacity 0.2s ease; // Smooth transition
+
+    &:hover:not(:disabled) {
+      background-color: #0165cd; // Darker blue on hover
+    }
+
+    &:disabled {
+      background-color: $secondary-color; // Grey when disabled
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+
+  .error-message {
+    color: $danger-color;
+    font-size: .8rem; // Smaller font for messages
+    margin-top: $spacing-xs; // Space above the error message
+  }
+
+  a {
+    margin-top: $spacing-lg; // Space above the link
+  }
+}
+
+.form-columns {
+  display: flex; /* Enable Flexbox */
+  gap: $spacing-xl; /* Space between columns and the divider */
+  width: 100%; /* Ensure it takes the full width of its container */
+
+  /* Stack columns vertically on smaller screens */
+  @include respond-down($breakpoint-md){
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+}
+
+.left-column,
+.right-column {
+  @include flex-display(column);
+  flex-basis: 0; /* Allows flex-grow to control size */
+  flex-grow: 1; /* Makes each column take up equal available space */
+  gap: $spacing-md; /* Space between form groups inside each column */
+
+  h3 { /* Style for the optional column titles */
+    margin-top: 0;
+    margin-bottom: $spacing-lg;
+    color: $secondary-color;
+    font-size: 1.2rem; // Use rem
+    border-bottom: 1px solid $border-color; // Subtle underline for the title
+    padding-bottom: $spacing-sm;
+  }
+}
+
+.form-divider {
+  width: 1px; /* Width of the vertical divider */
+  background-color: #ccc; /* Color of the divider */
+  flex-shrink: 0; /* Prevent the divider from shrinking */
+
+  /* Transform the divider into a horizontal line on smaller screens */
+  @include respond-down($breakpoint-md){ /* Adjust breakpoint as needed */
+    width: 100%; /* Make it full width */
+    height: 1px; /* Make it a horizontal line */
+    margin: 20px 0; /* Add vertical space */
+  }
+}

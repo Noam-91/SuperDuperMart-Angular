@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+// --- Import Variables ---
+@import "variables";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+// --- Box Sizing & Reset ---
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $base-font-family;
+  line-height: $base-line-height;
+  color: $text-color;
+  background-color: $background-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// --- Typography Basics with Nesting and Variables ---
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: $spacing-sm; // Use spacing variable
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: $base-font-size; } // Equivalent to 1rem
+
+p {
+  margin-bottom: $spacing-sm; // Use spacing variable
+}
+
+a {
+  color: $primary-color; // Use color variable
+  text-decoration: none;
+
+  &:hover { // Nesting the hover state
+    text-decoration: underline;
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

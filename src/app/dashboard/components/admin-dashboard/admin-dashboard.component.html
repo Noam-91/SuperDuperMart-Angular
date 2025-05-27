@@ -1,0 +1,82 @@
+<div class="recent-orders-container">
+
+  <div class="stats-container">
+    <button class="new-product-button" routerLink="/product-edit">New Product</button>
+    <div class="stats-table">
+      <h2>Profitable Products</h2>
+      <div class="most-x-products" *ngFor="let product of mostProfitableProducts">
+        <div class="product-thumbnail">
+          <img [src]="product.imageUrl" [alt]="product.name" class="thumbnail-image">
+        </div>
+        <div class="product-details">
+          <div class="product-name"><a [routerLink]="['/product', product.productId]">{{ product.name }}</a></div>
+          <div class="product-price">{{ product.priceRetail | currency }}</div>
+          <div class="product-stats">Total Profit: {{product.stats?.profit | currency}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="stats-table">
+      <h2>Popular Products</h2>
+      <div class="most-x-products" *ngFor="let product of mostPopularProducts">
+        <div class="product-thumbnail">
+          <img [src]="product.imageUrl" [alt]="product.name" class="thumbnail-image">
+        </div>
+        <div class="product-details">
+          <div class="product-name"><a [routerLink]="['/product', product.productId]">{{ product.name }}</a></div>
+          <div class="product-price">{{ product.priceRetail | currency }}</div>
+          <div class="product-stats">Total sales: {{product.stats?.sales}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="order-table">
+    <header class="page-header">
+      <h1>All Orders</h1>
+      <nav class="page-nav">
+        <button class="logout-button" (click)="handleLogout()">Logout</button>
+      </nav>
+    </header>
+
+    <div class="orders-list">
+      <div *ngIf="orders.length > 0; else noOrders">
+        <table>
+          <thead>
+          <tr>
+            <th>Order Time</th>
+            <th>Update Time</th>
+            <th>User ID</th>
+            <th>Order Status</th>
+            <th>Total Quantity</th>
+            <th>Total Price</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let order of orders" [ngClass]="'status-' + order.status.toLowerCase()">
+            <td>{{ order.createdAt | date:'short' }}</td>
+            <td>{{ order.updatedAt | date:'short' }}</td>
+            <td>{{ order.userId }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.totalQuantity }}</td>
+            <td>{{ order.totalPrice | currency}}</td>
+            <td class="table-action">
+              <a [routerLink] = "['/order', order.orderId]">View</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noOrders>
+        <div class="empty-orders-message">
+          <p>You have no recent orders.</p>
+          <p><a routerLink="/products">Start Shopping</a></p>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+
+
+</div>

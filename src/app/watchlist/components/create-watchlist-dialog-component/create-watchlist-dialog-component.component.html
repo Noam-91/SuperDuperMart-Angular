@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Create New Watchlist</h2>
+
+<mat-dialog-content [formGroup]="createWatchlistForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Watchlist Name</mat-label>
+    <input matInput formControlName="name" cdkFocusInitial>
+    <mat-error *ngIf="nameControl.invalid && (nameControl.dirty || nameControl.touched)">
+      Watchlist name is required.
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onCreateClick()" [disabled]="createWatchlistForm.invalid">Create</button>
+</mat-dialog-actions>

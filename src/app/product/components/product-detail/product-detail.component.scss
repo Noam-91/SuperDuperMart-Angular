@@ -1,0 +1,234 @@
+.product-detail-container {
+  display: flex;
+  flex-wrap: wrap; // Allows items to wrap on smaller screens
+  gap: 30px; // Space between image and info
+  padding: 20px;
+  max-width: 1200px;
+  min-height: 80vh;
+  margin: 20px auto; // Center the container
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    flex-direction: column; // Stack elements vertically on small screens
+    align-items: center;
+  }
+}
+
+.product-image-section {
+  flex: 1; // Takes up available space
+  min-width: 300px; // Minimum width for the image section
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Align image to the top
+  padding: 10px;
+
+  .product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.product-info-section {
+  flex: 2; // Takes up more space than the image section
+  min-width: 400px; // Minimum width for info section
+  padding: 10px;
+
+  @media (max-width: 768px) {
+    min-width: unset; // Remove min-width for mobile
+    width: 100%; // Take full width
+    text-align: center; // Center text on small screens
+  }
+
+  .product-name {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .product-category {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .product-price-section {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 20px;
+    gap: 20px; // Space between price and inventory
+
+    @media (max-width: 768px) {
+      justify-content: center; // Center on small screens
+    }
+
+    .price-retail {
+      font-size: 1.8em;
+      color: #007bff; // A nice blue for the price
+      font-weight: bold;
+    }
+
+    .inventory-status {
+      font-size: 0.9em;
+      padding: 4px 8px;
+      border-radius: 4px;
+      // Base styling, can be overridden by specific classes
+
+      &.out-of-stock {
+        background-color: #dc3545; // Red
+        color: #fff;
+        font-weight: bold;
+      }
+
+      &.almost-sold-out {
+        background-color: #ffc107; // Orange/Yellow
+        color: #333;
+        font-weight: bold;
+      }
+
+      &.less-than-50 {
+        background-color: #f8d7da; // Lighter red or a warning color
+        color: #721c24; // Darker text for readability
+      }
+
+      &.sufficient-stock {
+        background-color: #d4edda; // Light green
+        color: #155724; // Darker green text
+      }
+    }
+  }
+
+  .product-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 30px;
+  }
+
+  .admin-divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+    margin: 30px 0;
+  }
+
+  .admin-section-title {
+    font-size: 1.4em;
+    color: #007bff;
+    margin-bottom: 15px;
+  }
+
+  .product-actions {
+    display: flex;
+    flex-wrap: wrap; // Allow action items to wrap
+    gap: 15px;
+    align-items: center;
+    margin-top: 30px;
+
+    @media (max-width: 768px) {
+      justify-content: center; // Center buttons on small screens
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      label {
+        font-weight: bold;
+        color: #555;
+      }
+
+      .quantity-input {
+        width: 60px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 1em;
+      }
+    }
+
+    .add-to-cart-button,
+    .add-to-watchlist-button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+        color: #666;
+      }
+    }
+
+    .add-to-cart-button {
+      background-color: #28a745; // Green
+      color: white;
+
+      &:hover:enabled {
+        background-color: #218838;
+      }
+    }
+
+    .watchlist-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      label {
+        font-weight: bold;
+        color: #555;
+      }
+
+      .watchlist-select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+      }
+
+      .add-to-watchlist-button {
+        background-color: #007bff; // Blue
+        color: white;
+
+        &:hover:enabled {
+          background-color: #0056b3;
+        }
+
+        &:disabled{
+          background-color: #cccccc;
+          cursor: not-allowed;
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+.product-not-found {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.5em;
+  color: #888;
+}
+
+.login-reminder{
+  margin: 50px 0;
+  font-size: 1.2rem;
+  color: #d39e00;
+}
+
+.error-message {
+  color: red;
+  font-size: .8rem; // Smaller font for messages
+  margin-top: 8px; // Space above the error message
+}
+
+

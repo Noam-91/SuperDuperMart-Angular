@@ -1,0 +1,238 @@
+@import "variables";
+
+.recent-orders-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 20px auto; // Center the container
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif; // Use a common sans-serif font
+  @include flex-display(row,space-around,flex-start);
+}
+
+.stats-container{
+  @include flex-display(column,flex-start,center);
+  width: 15%;
+  .stats-table{
+    margin-bottom: 50px;
+    h2{
+      text-align: center;
+      color:orange;
+    }
+    .most-x-products {
+      @include flex-display(column,center,center);
+      align-items: center;
+      gap: 20px; // Space between thumbnail and details
+      padding: 15px 0;
+
+
+      &:last-child {
+        border-bottom: none; // No border for the last item
+      }
+
+      @media (max-width: 600px) {
+        flex-direction: column; // Stack items vertically on smaller screens
+        align-items: flex-start; // Align text left
+        gap: 10px;
+      }
+
+      .product-thumbnail {
+        flex-shrink: 0; // Prevent thumbnail from shrinking
+        width: 60px; // Smaller thumbnail for detail view
+        height: 60px;
+        overflow: hidden;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .thumbnail-image {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .product-details {
+        flex-grow: 1; // Allow details to take up available space
+
+        @media (max-width: 600px) {
+          width: 100%; // Take full width on small screens
+        }
+
+        .product-name {
+          font-size: 1.1em;
+          color: #333;
+          font-weight: bold;
+          margin-bottom: 4px;
+        }
+
+        .product-category {
+          font-size: 0.9em;
+          color: #666;
+          margin-bottom: 4px;
+        }
+
+        .product-price {
+          font-size: 1em;
+          color: #28a745; // Green color for price
+          margin-bottom: 4px;
+        }
+
+        .product-quantity {
+          font-size: 0.9em;
+          color: #555;
+        }
+      }
+    }
+  }
+
+}
+.order-table{
+  width: 80%;
+}
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+  }
+
+  .page-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    .nav-link {
+      text-decoration: none;
+      color: #007bff; // Blue link color
+      font-size: 1.1em;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }
+    }
+
+    .logout-button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #dc3545; // Red for logout
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #c82333;
+      }
+    }
+  }
+}
+
+.orders-list {
+  table {
+    width: 100%;
+    border-collapse: collapse; // Remove space between borders
+    margin-top: 20px;
+
+    th, td {
+      text-align: center;
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee; // Separator line
+    }
+
+    th {
+      background-color: #f2f2f2; // Light gray background for headers
+      font-weight: bold;
+      color: #555;
+    }
+    .table-action{
+      @include flex-display(row, space-around, center);
+    }
+
+    tbody tr {
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f9f9f9; // Slightly darker on hover
+      }
+    }
+
+    // Status specific styling
+    .status-processing {
+      // Maybe a light orange background or border
+      // background-color: #fff3cd;
+      // border-left: 4px solid #ffc107;
+      color: #d39e00; // Darker yellow text
+    }
+
+    .status-completed {
+      // Light green background or border
+      // background-color: #d4edda;
+      // border-left: 4px solid #28a745;
+      color: #28a745; // Green text
+    }
+
+    .status-cancelled {
+      // Light red background or border
+      // background-color: #f8d7da;
+      // border-left: 4px solid #dc3545;
+      color: #dc3545; // Red text
+    }
+
+    .cancel-order-button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      background-color: #ffc107; // Yellow/Orange for cancel
+      color: #333;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover:enabled {
+        background-color: #e0a800;
+      }
+
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+        color: #666;
+      }
+    }
+  }
+}
+
+.empty-orders-message {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2em;
+  color: #888;
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

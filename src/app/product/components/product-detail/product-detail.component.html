@@ -1,0 +1,77 @@
+<div class="product-detail-container" *ngIf="product">
+  <div class="product-image-section">
+    <img [src]="product.imageUrl" [alt]="product.name" class="product-image">
+  </div>
+
+  <div class="product-info-section">
+    <h1 class="product-name">{{ product.name }}</h1>
+    <p class="product-category">Category: {{ product.category.name }}</p>
+
+    <div class="product-price-section">
+      <span class="price-retail">Price: ${{ product.priceRetail | number:'1.2-2' }}</span>
+      <ng-container *ngIf="userRole==='ADMIN'; else clientView">
+        <span class="inventory-status" [ngClass]="getInventoryStatusClass()">{{product.inventory.quantity}} in stock</span>
+      </ng-container>
+      <ng-template #clientView>
+        <span class="inventory-status" [ngClass]="getInventoryStatusClass()">
+          {{ getInventoryStatusText() }}
+        </span>
+      </ng-template>
+    </div>
+
+    <p class="product-description">{{ product.description }}</p>
+
+    <ng-container *ngIf="userRole === 'ADMIN'">
+      <hr class="admin-divider">
+      <h3 class="admin-section-title">Admin Details</h3>
+      <p><strong>Product ID:</strong> {{ product.productId }}</p>
+      <p><strong>Is Active:</strong> {{ product.isActive ? 'Yes' : 'No' }}</p>
+      <p><strong>Wholesale Price:</strong> ${{ product.priceWholesale | number:'1.2-2' }}</p>
+      <p><strong>Created At:</strong> {{ product.createdAt | date:'short' }}</p>
+      <p><strong>Updated At:</strong> {{ product.updatedAt | date:'short' }}</p>
+      <p><strong>Created By:</strong> {{ product.createdBy }}</p>
+      <p><strong>Updated By:</strong> {{ product.updatedBy }}</p>
+    </ng-container>
+
+    <div class="product-actions" *ngIf="userRole!=='ADMIN'; else adminActions" >
+      <div class="quantity-selector">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" [formControl]="quantityControl" class="quantity-input">
+
+      </div>
+
+      <button class="add-to-cart-button" (click)="addToCart()" [disabled]="userRole==='ANONYMOUS'">
+        Add to Cart
+      </button>
+
+      <div class="watchlist-section">
+        <label for="watchlist-dropdown">Add to Watchlist:</label>
+        <select id="watchlist-dropdown" [formControl]="selectedWatchlistControl" class="watchlist-select">
+          <option [ngValue]="null" disabled selected>Select a watchlist</option>
+          <option *ngFor="let watchlist of watchlistCollection" [ngValue]="watchlist.watchlistId">{{ watchlist.name }}</option>
+        </select>
+        <button class="add-to-watchlist-button" (click)="addToWatchlist(selectedWatchlistControl.value)" [disabled]="selectedWatchlistControl.value === null||userRole==='ANONYMOUS'">
+          Add
+        </button>
+      </div>
+    </div>
+    <div *ngIf="quantityControl.invalid && (quantityControl.dirty || quantityControl.touched)" class="error-message">
+      <div *ngIf="quantityControl.errors?.['required']">Quantity is required.</div>
+      <div *ngIf="quantityControl.errors?.['min']">Quantity must be at least 1.</div>
+      <div *ngIf="quantityControl.errors?.['max']">Quantity cannot exceed available stock.</div>
+    </div>
+    <p class = 'login-reminder' [hidden]="userRole!=='ANONYMOUS'">Please login to continue shopping</p>
+  </div>
+
+  <ng-template #adminActions>
+    <div class="product-actions">
+      <button class="add-to-cart-button" (click)="handleEdit()">
+        Edit
+      </button>
+    </div>
+  </ng-template>
+</div>
+<div *ngIf="!product" class="product-not-found">
+  <p>Product not found or an error occurred.</p>
+</div>
+

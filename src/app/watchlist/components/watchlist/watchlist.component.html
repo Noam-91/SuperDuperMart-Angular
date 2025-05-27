@@ -1,0 +1,59 @@
+<div class="watchlist-container">
+  <div class="watchlist-controls" [formGroup]="watchlistForm">
+    <button class="create-watchlist-button" (click)="openCreateWatchlistDialog()">
+      Create Watchlist
+    </button>
+
+    <div class="watchlist-select-container">
+      <label for="watchlist-dropdown" class="visually-hidden">Select Watchlist:</label>
+      <select id="watchlist-dropdown"
+              [formControl]="selectedWatchlistIdControl"
+              class="watchlist-dropdown">
+        <option [ngValue]="null" disabled>Select a Watchlist</option>
+        <option *ngFor="let watchlist of watchlistCollection" [ngValue]="watchlist.watchlistId">{{ watchlist.name }}</option>
+      </select>
+    </div>
+
+    <button class="delete-watchlist-button"
+            (click)="deleteSelectedWatchlist()"
+            [disabled]="selectedWatchlistIdControl.value === null">
+      Delete Watchlist
+    </button>
+  </div>
+
+  <div *ngIf="onLoading" class="loading-indicator">
+    Loading watchlist...
+  </div>
+
+
+  <div class="watchlist-products" *ngIf="!onLoading && watchlist && productsInWatchlist.length > 0">
+    <h2>Products in {{ watchlist.name }}</h2>
+    <div *ngFor="let product of productsInWatchlist" class="product-item">
+      <div class="product-thumbnail">
+        <img [src]="product.imageUrl" [alt]="product.name" class="thumbnail-image">
+      </div>
+      <div class="product-details">
+        <a [routerLink]="['/product', product.productId]" class="product-name-link">{{ product.name }}</a>
+        <p class="product-category">{{ product.category.name }}</p>
+        <p class="product-price">${{ product.priceRetail | number:'1.2-2' }}</p>
+      </div>
+      <div class="product-actions">
+        <button class="add-to-cart-button" (click)="addToCart(product)">
+          Add to Cart
+        </button>
+        <button class="remove-button" (click)="removeFromWatchlist(product)">
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-watchlist-message" *ngIf="!onLoading && selectedWatchlistIdControl.value === null">
+    <p>Please select a watchlist from the dropdown above.</p>
+  </div>
+
+  <div class="empty-watchlist-message" *ngIf="!onLoading && selectedWatchlistIdControl.value !== null && (!watchlist || productsInWatchlist.length === 0)">
+    <p>This watchlist is currently empty.</p>
+  </div>
+</div>
+

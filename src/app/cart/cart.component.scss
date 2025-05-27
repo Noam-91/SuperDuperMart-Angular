@@ -1,0 +1,320 @@
+/* src/app/cart/cart.component.scss */
+
+.cart-container {
+  max-width: 1000px; // Adjust maximum width as needed
+  min-height: 80vh;
+  margin: 20px auto; // Center the container horizontally
+  padding: 20px;
+  border: 1px solid #ddd; // Subtle border around the cart
+  border-radius: 8px; // Rounded corners
+  background-color: #fff; // White background
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Soft shadow
+}
+
+h2 {
+  text-align: center; // Center the heading
+  margin-top: 0;
+  margin-bottom: 25px; // Space below the heading
+  color: #333; // Darker text color
+}
+
+.checkout-button {
+  display: block; // Make button a block element to control its width and margin
+  width: 220px; // Set a specific width for the button
+  margin: 0 auto 30px auto; // Center horizontally and add space below
+  padding: 12px 25px; // Padding inside the button
+  background-color: #28a745; // Success color (green)
+  color: white; // White text
+  border: none; // Remove default border
+  border-radius: 5px; // Rounded corners
+  font-size: 18px; // Larger font size
+  cursor: pointer; // Indicate clickable
+  transition: background-color 0.3s ease; // Smooth hover effect
+
+  &:hover {
+    background-color: #218838; // Darker green on hover
+  }
+
+  &:disabled {
+    background-color: #cccccc; // Grey out when disabled
+    cursor: not-allowed; // Indicate not clickable
+    opacity: 0.7; // Slightly transparent
+  }
+}
+
+/* Styles for the list of cart items */
+.cart-items {
+  display: grid; // Use Grid for the main layout of items and header
+  // Define the columns for: Checkbox, Thumbnail, Info, Quantity, Remove, Price
+  // Adjust widths as necessary. 1fr makes the 'Info' column take remaining space.
+  grid-template-columns: 40px 90px 1fr 120px 90px 100px;
+  gap: 15px; // Space between columns
+  border-top: 1px solid #eee; // Separator at the top of the items list
+  padding-top: 15px; // Space above the first item/header
+  align-items: center; /* Vertically align items in each grid row */
+}
+
+/* Styles for each individual cart item row and the header row */
+.cart-item {
+  display: contents; // This makes the children (.item-*) directly participate in the parent grid (.cart-items)
+  // Styles applied to .cart-item itself will apply conceptually to the whole row,
+  // but individual grid item styling goes on the children (.item-*)
+
+  border-bottom: 1px solid #eee; // Separator between rows
+  padding-bottom: 15px; // Space below the content within the row
+  margin-bottom: 15px; // Space between rows (alternative to grid-row-gap)
+
+  &:last-child {
+    border-bottom: none; // No separator after the last row
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+/* Specific styles for the header row */
+.header-row {
+  font-weight: bold; // Make header text bold
+  background-color: #f8f8f8; // Light background for header row
+  // If using display: contents, styles for padding/border need to be on the children > div
+  display: contents; /* Make header column divs grid items too */
+
+  & > div {
+    padding: 10px 5px; // Padding for header cells
+    border-bottom: 2px solid #ccc; // Thicker separator below the header
+    margin-bottom: 15px; // Space between header and the first product row
+    // background-color: #f8f8f8; // Apply background here if display: contents causes issues
+  }
+}
+
+
+/* Basic styling for each column div within a cart-item or header-row */
+.cart-item > div,
+.header-row > div {
+  padding: 0 5px; // Internal padding within column cells
+  // No text-align by default, configure per column
+}
+
+
+/* Specific Column Styles */
+.item-checkbox {
+  display: flex; // Use flex to center the checkbox
+  justify-content: center;
+  align-items: center;
+}
+
+.item-thumbnail {
+  img {
+    display: block; // Remove extra space below image
+    width: 80px; // Fixed width for thumbnail
+    height: auto; // Maintain aspect ratio
+    border-radius: 4px; // Slightly rounded corners for image
+    object-fit: cover; // Crop image if necessary to fit dimensions
+  }
+}
+
+.item-info {
+  // Product name and category alignment
+  display: flex;
+  flex-direction: column; // Stack name and category vertically
+  justify-content: center; // Vertically center text within the cell
+  padding-left: 10px; // Add some space after the thumbnail
+
+  .item-name {
+    font-weight: bold; // Product name is bold
+    margin-bottom: 4px; // Space between name and category
+    color: #333;
+  }
+  .item-category {
+    font-size: 0.9em; // Smaller font for category
+    color: #555; // Muted color
+  }
+}
+
+.item-quantity {
+  display: flex; // Use flex to align buttons and span horizontally
+  align-items: center; // Vertically center items
+  justify-content: center; // Center the quantity controls block
+  gap: 5px; // Space between button, span, and button
+
+  button {
+    padding: 4px 10px; // Padding inside buttons
+    border: 1px solid #ccc;
+    background-color: #f8f8f8; // Light background
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1; // Adjust line height to center text/symbols
+
+    &:hover {
+      background-color: #eee;
+    }
+    &:disabled {
+      background-color: #f8f8f8;
+      cursor: not-allowed;
+      border-color: #eee;
+      opacity: 0.5;
+    }
+  }
+
+  span {
+    min-width: 20px; // Ensure space for quantity number
+    text-align: center; // Center the number
+    font-weight: bold;
+  }
+}
+
+.item-remove {
+  display: flex; // Use flex to center the button
+  justify-content: center;
+  align-items: center;
+
+  button {
+    padding: 6px 12px; // Padding inside button
+    background-color: #dc3545; // Danger color (red)
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #c82333; // Darker red on hover
+    }
+  }
+}
+
+.item-price {
+  text-align: right; // Right-align the price text
+  font-weight: bold; // Make price bold
+  color: #333;
+  display: flex; // Use flex to align content within the cell
+  justify-content: flex-end; // Align content to the right
+  align-items: center; // Vertically center content
+}
+
+
+/* Styles for the summary section */
+.cart-summary {
+  margin-top: 30px; // Space above the summary
+  padding-top: 20px; // Padding inside the summary top
+  border-top: 1px solid #eee; // Separator above the summary
+  text-align: right; // Align summary text to the right
+  font-size: 1.15em; // Slightly larger font size
+  font-weight: bold; // Bold text
+
+  p {
+    margin: 8px 0; // Space between lines in the summary
+    color: #333;
+  }
+}
+
+
+/* Styles for the empty cart message */
+.emptyCartMessage {
+  text-align: center; // Center the message
+  padding: 40px 20px; // Padding around the message
+  color: #555; // Muted text color
+  font-size: 1.1em;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .cart-container {
+    padding: 15px; // Reduce padding on smaller screens
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .checkout-button {
+    width: 80%; // Make button wider on smaller screens
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+
+  .cart-items {
+    display: flex; // Switch to Flexbox for stacking items
+    flex-direction: column; // Stack items vertically
+    gap: 20px; // Space between stacked items
+    padding-top: 0; // Remove top padding as header is hidden
+    border-top: none; // Remove top border
+  }
+
+  .header-row {
+    display: none; // Hide the header row in stacked view
+  }
+
+  .cart-item {
+    display: flex; // Use Flexbox for the stacked item layout
+    flex-direction: column; // Stack contents vertically within the item
+    border: 1px solid #eee; // Add border around each stacked item
+    border-radius: 8px;
+    padding: 15px; // Padding inside the stacked item
+    margin-bottom: 15px; // Space between stacked items
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Adjust padding for column divs when stacked */
+  .cart-item > div {
+    padding: 5px 0;
+  }
+
+
+  /* Adjust alignment and layout within stacked items */
+  .item-checkbox {
+    justify-content: flex-start; // Align checkbox to the start
+  }
+
+  .item-thumbnail {
+    img {
+      max-width: 60px; // Limit image size in stacked view
+      height: auto;
+    }
+    padding-bottom: 10px; // Add space below thumbnail
+    border-bottom: 1px solid #eee; // Separator below thumbnail
+  }
+
+  .item-info {
+    padding-top: 10px; // Space above info
+    padding-bottom: 10px; // Space below info
+    border-bottom: 1px solid #eee; // Separator below info
+    padding-left: 0; // Remove left padding
+  }
+
+  .item-quantity {
+    justify-content: flex-start; // Align quantity to the start
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee; // Separator below quantity
+  }
+
+  .item-remove {
+    justify-content: flex-start; // Align remove button to the start
+    padding-top: 10px;
+  }
+
+  .item-price {
+    text-align: left; // Left align price in stacked view
+    justify-content: flex-start;
+    font-size: 1.3em; // Make price more prominent
+    font-weight: bold;
+    color: #007bff; // Highlight price color
+  }
+
+
+  .cart-summary {
+    text-align: center; // Center summary in stacked view
+    font-size: 1.1em;
+  }
+
+  .emptyCartMessage {
+    padding: 30px 15px;
+    font-size: 1em;
+  }
+}

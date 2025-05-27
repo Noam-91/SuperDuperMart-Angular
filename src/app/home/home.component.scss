@@ -1,0 +1,267 @@
+/* home.component.scss */
+
+.home-container {
+  padding: 30px 20px;
+  max-width: 1200px; // A reasonable max-width for product grids
+  margin: 20px auto;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 3em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .user-info {
+    font-size: 1.1em;
+    color: #666;
+  }
+}
+
+.category-section {
+  margin-bottom: 50px; // Space between different categories
+
+  .category-title {
+    font-size: 2.2em;
+    color: #34495e;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+}
+
+.product-cards-grid {
+  display: grid;
+  // Responsive grid: 1 column on small, 2 on medium, 3 on large
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px; // Space between cards
+  justify-content: center; // Center cards if fewer than a full row
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr; // Single column on very small screens
+  }
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden; // Ensures image corners are rounded with card
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px); // Lift card on hover
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .product-image-container {
+    height: 200px; // Fixed height for images
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8; // Light background for images
+  }
+
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; // Ensures entire image is visible, no cropping
+  }
+
+  .product-info {
+    padding: 15px;
+    flex-grow: 1; // Allows info section to expand
+    display: flex;
+    flex-direction: column;
+
+    .product-name {
+      font-size: 1.4em;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-top: 0;
+      margin-bottom: 8px;
+      cursor: pointer; // Indicate clickable
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #007bff; // Highlight on hover
+      }
+    }
+
+    .product-category {
+      font-size: 0.9em;
+      color: #7f8c8d;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: #27ae60; // Green for price
+      margin-top: auto; // Pushes price to bottom of info section
+    }
+
+    .product-status {
+      font-size: 0.9em;
+      font-weight: 500;
+      color: #e74c3c; // Red for out of stock
+      margin-top: 5px;
+
+      &.admin-view {
+        color: #3498db; // Blue for admin specific info
+      }
+    }
+  }
+
+  .product-actions {
+    display: flex;
+    padding: 15px;
+    gap: 10px;
+    border-top: 1px solid #eee; // Separator for actions
+
+    button {
+      flex: 1; // Make buttons take equal width
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+
+      &:active {
+        transform: translateY(1px); // Click effect
+      }
+    }
+
+    .add-to-cart-button {
+      background-color: #007bff; // Primary blue
+      color: white;
+
+      &:hover:enabled {
+        background-color: #0056b3;
+      }
+
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+        color: #666;
+      }
+    }
+
+    .details-button {
+      background-color: #f1f1f1; // Light gray
+      color: #555;
+      border: 1px solid #ddd;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+}
+
+.empty-products-message {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.5em;
+  color: #888;
+}
+
+.floating-assistant-button {
+  position: fixed; /* Makes the element float relative to the viewport */
+  bottom: 30px;    /* Distance from the bottom of the viewport */
+  right: 30px;     /* Distance from the right of the viewport */
+  z-index: 1000;   /* Ensures it stays on top of other content */
+
+  background-color: #007bff; /* Primary blue background */
+  color: white;              /* White text/icon color */
+  padding: 15px 25px;        /* Padding inside the button */
+  border-radius: 50px;       /* Makes it pill-shaped or fully rounded */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Stronger shadow for floating effect */
+  cursor: pointer;           /* Indicates it's clickable */
+  text-decoration: none;     /* Remove underline from anchor tag */
+
+  display: flex;             /* Use flexbox for content alignment */
+  align-items: center;       /* Vertically center icon and text */
+  gap: 10px;                 /* Space between icon and text */
+
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+
+  &:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-3px); /* Slightly lift the button on hover */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35); /* More pronounced shadow on hover */
+  }
+
+  .button-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .assistant-icon {
+    font-size: 1.8em; /* Size of the icon */
+    line-height: 1; /* Ensures icon sits well vertically */
+    // If using Font Awesome, you might need to adjust font-family
+    // font-family: "Font Awesome 5 Free";
+    // font-weight: 900;
+  }
+
+  .assistant-text {
+    font-size: 1.1em; /* Size of the text */
+    font-weight: 600; /* Bold text */
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px; /* Slightly smaller padding */
+    gap: 8px;
+
+    .assistant-icon {
+      font-size: 1.5em; /* Smaller icon */
+    }
+
+    .assistant-text {
+      font-size: 1em; /* Smaller text */
+    }
+  }
+
+  /* Even smaller screens, potentially just an icon */
+  @media (max-width: 480px) {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 15px; /* Even smaller padding */
+    border-radius: 50%; /* Make it perfectly round */
+    width: 50px; /* Fixed width and height for a circle */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .assistant-text {
+      display: none; /* Hide text on very small screens */
+    }
+
+    .assistant-icon {
+      font-size: 1.6em; /* Adjust icon size for circle */
+    }
+  }
+}

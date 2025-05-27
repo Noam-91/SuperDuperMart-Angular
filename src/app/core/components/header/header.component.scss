@@ -1,0 +1,130 @@
+@import "variables";
+
+// Assuming variables.scss includes:
+// $logo-color, $text-color, $light-color
+// and the flex-display mixin:
+// @mixin flex-display($direction: row, $justify: flex-start, $align: stretch) {
+//   display: flex;
+//   flex-direction: $direction;
+//   justify-content: $justify;
+//   align-items: $align;
+// }
+
+.nav-header {
+  @include flex-display(row, space-between, center); // Apply flexbox to the header itself
+  // max-height: 120px; // Consider if a fixed max-height is desirable/responsive
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  background: $logo-color; // Use the imported variable for background
+  color: $text-color; // Default text color for header elements
+
+  padding: 10px 20px; // Add some vertical and horizontal padding
+
+  .logo {
+    @include flex-display(row, flex-start, center); // Align items within the logo div
+    flex-shrink: 0; // Prevent logo from shrinking
+
+    a {
+      @include flex-display(row, flex-start, center); // Align the image/icon and text within the link
+      text-decoration: none;
+      color: $light-color; // Color for the logo text and icon/image
+      font-size: 1.5em;
+      font-weight: bold;
+
+      img {
+        height: 40px;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .nav-links {
+    @include flex-display(row, flex-end, center); // Align nav links to the right
+    flex-grow: 1; // Allow the nav links section to take available space
+    gap: 20px; // Add space between the user section and the cart icon
+
+    .user-section {
+      @include flex-display(row, center, center); // Align items within the user section
+
+      a {
+        text-decoration: none;
+        color: $light-color; // Color for user dashboard link or "Please login" text
+        @include flex-display(row, center, center); // Align icon and text
+
+        mat-icon {
+          font-size: 1.5em; // Size for user icon
+        }
+
+        &.login-link {
+          font-size: 1em; // Font size for "Please login"
+          // Add padding if needed
+        }
+      }
+    }
+
+    .cart-icon {
+      @include flex-display(row, center, center); // Align cart icon and text side-by-side
+      text-decoration: none;
+      color: $light-color; // Color for cart icon and text
+      // Add some padding or margin to space it from the edge if needed
+
+      .cart-pic-num {
+        @include flex-display(row, center, center);
+        position: relative; // For potential badge positioning
+        margin-right: 5px; // Space between the icon/count and the word "Cart"
+
+        span {
+          // Style for the cart item count (badge)
+          position: absolute;
+          top: -8px; // Adjust position above the icon
+          right: -8px; // Adjust position to the right of the icon
+          background-color: red; // Example badge background color
+          color: white; // Example badge text color
+          border-radius: 50%; // Make it round
+          padding: 2px 6px; // Add padding inside the badge
+          font-size: 0.7em; // Smaller font size for the count
+          min-width: 16px; // Ensure it's round even with a single digit
+          text-align: center; // Center the number
+          line-height: 1; // Vertically center the number
+          z-index: 1; // Ensure the badge is above the icon
+        }
+
+        mat-icon {
+          font-size: 1.8em; // Slightly larger size for the cart icon
+          // margin-right: 5px; // Add if count is not absolutely positioned
+        }
+      }
+
+      .cart-text {
+        @include flex-display(column, center, flex-start); // Stack potential count and "Cart" text
+        font-size: 0.9em; // Font size for the word "Cart"
+        // Add margin/padding if needed
+      }
+    }
+
+    // Hover effects for all links within nav-links
+    a:hover {
+      color: lighten($primary-color, 20%);
+      cursor: pointer;
+    }
+  }
+}
+
+// Optional: Basic responsiveness for smaller screens
+@media (max-width: 768px) {
+  .nav-header {
+    flex-direction: column; // Stack items vertically on small screens
+    align-items: flex-start; // Align items to the start
+    padding: 10px 15px; // Adjust padding
+
+    .logo {
+      margin-bottom: 10px; // Add space below the logo when stacked
+    }
+
+    .nav-links {
+      width: 100%; // Make nav links take full width
+      justify-content: space-between; // Space out user and cart sections horizontally
+      gap: 10px; // Reduce gap
+    }
+  }
+}

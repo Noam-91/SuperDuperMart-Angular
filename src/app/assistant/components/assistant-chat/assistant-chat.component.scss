@@ -1,0 +1,148 @@
+/* assistant-chat.component.scss */
+
+// Optional: Import a base theme or variables if you have them
+// @import 'src/styles/variables';
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%; // Or a fixed width like 400px
+  max-width: 600px; // Max width for larger screens
+  height: 500px; // Fixed height for the chat window
+  margin: 20px auto; // Center the chat container
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); // Soft shadow for depth
+  overflow: hidden; // Ensures rounded corners are respected
+  background-color: #fff;
+  font-family: 'Inter', sans-serif; // Consistent font
+}
+
+.chat-header {
+  background-color: #007bff; // Primary header color
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: 600;
+  border-bottom: 1px solid #0056b3;
+}
+
+.chat-messages {
+  flex-grow: 1; // Allows message area to take available space
+  padding: 15px 20px;
+  overflow-y: auto; // Enables scrolling for messages
+  display: flex;
+  flex-direction: column; // Stack messages vertically
+  gap: 10px; // Space between messages
+  background-color: #f7f9fc; // Light background for chat area
+}
+
+.message-wrapper {
+  display: flex; // Use flexbox for alignment
+  max-width: 80%; // Messages don't take full width
+}
+
+.message-bubble {
+  padding: 12px 18px;
+  border-radius: 20px;
+  font-size: 1em;
+  line-height: 1.4;
+  word-wrap: break-word; // Ensures long words break to the next line
+  white-space: pre-wrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+// User (your) messages
+.message-wrapper.user {
+  justify-content: flex-end; // Align user messages to the right
+  .message-bubble {
+    background-color: #dcf8c6; // Light green for user messages
+    color: #333;
+    border-bottom-right-radius: 4px; // Slightly less rounded corner for the "tail"
+  }
+}
+
+// Assistant messages
+.message-wrapper.assistant {
+  justify-content: flex-start; // Align assistant messages to the left
+  .message-bubble {
+    background-color: #e2e2e2; // Light gray for assistant messages
+    color: #333;
+    border-bottom-left-radius: 4px; // Slightly less rounded corner for the "tail"
+  }
+}
+
+// System messages (e.g., connection errors)
+.message-wrapper.system {
+  justify-content: center; // Center system messages
+  .message-bubble {
+    background-color: #fff3cd; // Light yellow for system messages
+    color: #856404;
+    font-style: italic;
+    font-size: 0.9em;
+    text-align: center;
+  }
+}
+
+// Styling for links within messages
+.message-bubble a {
+  color: #007bff; // Standard link blue
+  text-decoration: underline;
+  &:hover {
+    color: #0056b3;
+  }
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+  gap: 10px; // Space between input and button
+}
+
+.message-input {
+  flex-grow: 1; // Input field takes most of the space
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 25px; // Pill-shaped input
+  font-size: 1em;
+  outline: none; // Remove default outline
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: #007bff; // Highlight on focus
+  }
+}
+
+.send-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 25px; // Pill-shaped button
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px; // Space between icon and text if used
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover:enabled {
+    background-color: #0056b3;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #666;
+    box-shadow: none;
+  }
+
+  mat-icon { // Style for Angular Material icon if used
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+}

@@ -1,0 +1,33 @@
+footer {
+  background-color: #333; // Dark background
+  color: #fff; // White text
+  padding: 20px 0; // Vertical padding
+  text-align: center; // Center text
+  margin-top: auto; // Push footer to the bottom if parent is flex/grid column
+  flex-shrink: 0; // Prevent shrinking if parent is a flex/grid container
+
+  .container {
+    max-width: 1200px; // Max width for content, adjust as needed
+    margin: 0 auto; // Center content within footer
+    padding: 0 15px; // Horizontal padding
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 10px; // Space below copyright text
+    font-size: 14px;
+  }
+
+  .footer-links {
+    font-size: 14px;
+
+    a {
+      color: #fff; // White links
+      text-decoration: none; // No underline
+
+      &:hover {
+        text-decoration: underline; // Underline on hover
+      }
+    }
+  }
+}
